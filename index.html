@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .display {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 1.5rem;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 15px;
+            border: none;
+            background: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .operator {
+            background: #28a745;
+        }
+
+        .operator:hover {
+            background: #1e7e34;
+        }
+
+        .clear {
+            background: #dc3545;
+        }
+
+        .clear:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" id="display" class="display" disabled />
+        <div class="buttons">
+            <button class="number btn">7</button>
+            <button class="number btn">8</button>
+            <button class="number btn">9</button>
+            <button class="operator btn">/</button>
+            <button class="number btn">4</button>
+            <button class="number btn">5</button>
+            <button class="number btn">6</button>
+            <button class="operator btn">*</button>
+            <button class="number btn">1</button>
+            <button class="number btn">2</button>
+            <button class="number btn">3</button>
+            <button class="operator btn">-</button>
+            <button class="number btn">0</button>
+            <button class="clear btn">C</button>
+            <button class="equals btn">=</button>
+            <button class="operator btn">+</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let operation = '';
+        let num1;
+        let num2;
+        let operator = '';
+        let output;
+
+
+        let btns = document.querySelectorAll(".btn")
+
+        let temp = "                       ";
+        console.log(temp.trim(), "trimmed_output");
+
+        function calculate() {
+            let exp = display.value
+            operator = exp.includes("+") ? "+" :
+                exp.includes("-") ? "-" :
+                    exp.includes("*") ? "*" :
+                        exp.includes("/") ? "/" :
+                            "";
+            if (!!operator) {
+
+                let [num1, num2] = exp.split(operator);
+                console.log(num1, num2);
+
+                num1 = +num1;
+                num2 = +num2;
+                if (operator == "+") {
+                    exp = num1 + num2
+                }
+                else if (operator == "-") {
+                    exp = num1 - num2
+                }
+                else if (operator == "*") {
+                    exp = num1 * num2
+                }
+                else if (operator = "/") {
+                    exp = num1 / num2
+                }
+                output = exp
+                display.value = exp
+            }
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Backspace') {
+                display.value = display.value.substring(0, display.value.length - 1)
+            }
+        });
+
+
+        btns.forEach((el, index) => {
+            el.addEventListener("click", () => {
+                let btnText = el.textContent;
+
+
+                if (display.value.trim() == "" ||
+                    !!display.value.includes("+") ||
+                    !!display.value.includes("-") ||
+                    !!display.value.includes("*") ||
+                    !!display.value.includes("/")
+                ) {
+                    if (btnText == "+" || btnText == "-" || btnText == "*" || btnText == "/") {
+                        console.log("Not valid");
+
+                    } else if (btnText == "=") {
+                        console.log("calculating");
+
+                        calculate()
+                    }
+                    else {
+                        display.value = display.value + btnText
+                    }
+                }
+                else {
+                    if (output != undefined && btnText != "+" && btnText != "-" && btnText != "*" && btnText != "/") {
+                        display.value = ''
+                    }
+                    display.value = display.value + btnText
+                }
+                if (btnText == "C") {
+                    display.value = ''
+                }
+                // if (!display.value.includes("+") && !display.value.includes("-") && !display.value.includes("*") && !display.value.includes("/")) {
+                //     if (display.value == "") {
+                //         if (btnText != "+" && btnText != "-" && btnText != "*" && btnText != "/") {
+                //             display.value = display.value + btnText;
+                //         }
+                //         else {
+                //             alert("please enter a valid expression")
+                //         }
+                //     }
+                //     else {
+                //         display.value = display.value + btnText;
+                //     }
+                // }
+
+                console.log(display.value);
+
+
+            })
+
+
+            /*
+            1) we cannot start the operation with an operator
+            2) we cannot have more that one operator
+            3) 
+            */
+        })
+
+        document.querySelector('.clear').addEventListener('click', () => {
+            operation = '';
+            display.value = '';
+        });
+    </script>
+</body>
+
+</html>
