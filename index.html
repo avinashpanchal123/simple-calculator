@@ -99,120 +99,75 @@
 
     <script>
         const display = document.getElementById('display');
-        let operation = '';
-        let num1;
-        let num2;
-        let operator = '';
         let output;
-
-
-        let btns = document.querySelectorAll(".btn")
-
-        let temp = "                       ";
-        console.log(temp.trim(), "trimmed_output");
-
+    
+        const btns = document.querySelectorAll('.btn');
+    
         function calculate() {
-            let exp = display.value
-            operator = exp.includes("+") ? "+" :
-                exp.includes("-") ? "-" :
-                    exp.includes("*") ? "*" :
-                        exp.includes("/") ? "/" :
-                            "";
-            if (!!operator) {
-
-                let [num1, num2] = exp.split(operator);
-                console.log(num1, num2);
-
-                num1 = +num1;
-                num2 = +num2;
-                if (operator == "+") {
-                    exp = num1 + num2
+            const exp = display.value.trim();
+            const operator = ['+', '-', '*', '/'].find(op => exp.includes(op));
+    
+            if (operator) {
+                const [num1, num2] = exp.split(operator).map(Number);
+    
+                if (!isNaN(num1) && !isNaN(num2)) {
+                    switch (operator) {
+                        case '+':
+                            output = num1 + num2;
+                            break;
+                        case '-':
+                            output = num1 - num2;
+                            break;
+                        case '*':
+                            output = num1 * num2;
+                            break;
+                        case '/':
+                            output = num2 !== 0 ? num1 / num2 : 'Error'; // Handle division by zero
+                            break;
+                    }
+                    display.value = output;
+                } else {
+                    display.value = 'Error';
                 }
-                else if (operator == "-") {
-                    exp = num1 - num2
-                }
-                else if (operator == "*") {
-                    exp = num1 * num2
-                }
-                else if (operator = "/") {
-                    exp = num1 / num2
-                }
-                output = exp
-                display.value = exp
             }
         }
-
-        document.addEventListener('keydown', function (event) {
+    
+        btns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const btnText = btn.textContent;
+    
+                if (btnText === 'C') {
+                    display.value = '';
+                    output = undefined;
+                } else if (btnText === '=') {
+                    calculate();
+                } else {
+                    if (['+', '-', '*', '/'].includes(btnText)) {
+                        const lastChar = display.value.slice(-1);
+    
+                        // Prevent consecutive operators
+                        if (!['+', '-', '*', '/'].includes(lastChar) && display.value.trim() !== '') {
+                            display.value += btnText;
+                        }
+                    } else {
+                        if (output !== undefined) {
+                            display.value = ''; // Clear display after calculation
+                            output = undefined;
+                        }
+                        display.value += btnText;
+                    }
+                }
+            });
+        });
+    
+        // Backspace support
+        document.addEventListener('keydown', (event) => {
             if (event.key === 'Backspace') {
-                display.value = display.value.substring(0, display.value.length - 1)
+                display.value = display.value.slice(0, -1);
             }
         });
-
-
-        btns.forEach((el, index) => {
-            el.addEventListener("click", () => {
-                let btnText = el.textContent;
-
-
-                if (display.value.trim() == "" ||
-                    !!display.value.includes("+") ||
-                    !!display.value.includes("-") ||
-                    !!display.value.includes("*") ||
-                    !!display.value.includes("/")
-                ) {
-                    if (btnText == "+" || btnText == "-" || btnText == "*" || btnText == "/") {
-                        console.log("Not valid");
-
-                    } else if (btnText == "=") {
-                        console.log("calculating");
-
-                        calculate()
-                    }
-                    else {
-                        display.value = display.value + btnText
-                    }
-                }
-                else {
-                    if (output != undefined && btnText != "+" && btnText != "-" && btnText != "*" && btnText != "/") {
-                        display.value = ''
-                    }
-                    display.value = display.value + btnText
-                }
-                if (btnText == "C") {
-                    display.value = ''
-                }
-                // if (!display.value.includes("+") && !display.value.includes("-") && !display.value.includes("*") && !display.value.includes("/")) {
-                //     if (display.value == "") {
-                //         if (btnText != "+" && btnText != "-" && btnText != "*" && btnText != "/") {
-                //             display.value = display.value + btnText;
-                //         }
-                //         else {
-                //             alert("please enter a valid expression")
-                //         }
-                //     }
-                //     else {
-                //         display.value = display.value + btnText;
-                //     }
-                // }
-
-                console.log(display.value);
-
-
-            })
-
-
-            /*
-            1) we cannot start the operation with an operator
-            2) we cannot have more that one operator
-            3) 
-            */
-        })
-
-        document.querySelector('.clear').addEventListener('click', () => {
-            operation = '';
-            display.value = '';
-        });
     </script>
+    
 </body>
 
 </html>
