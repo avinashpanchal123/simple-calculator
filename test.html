@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatic Image Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .slider {
+      width: 80%;
+      max-width: 600px;
+      overflow: hidden;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .slider-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slider-images img {
+      width: 100%;
+      height: auto;
+    }
+
+    .slider-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+    }
+
+    .slider-indicators span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ddd;
+      cursor: pointer;
+    }
+
+    .slider-indicators .active {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider">
+    <div class="slider-images" id="slider-images">
+      <img src="https://via.placeholder.com/600x300?text=Image+1" alt="Image 1">
+      <img src="https://via.placeholder.com/600x300?text=Image+2" alt="Image 2">
+      <img src="https://via.placeholder.com/600x300?text=Image+3" alt="Image 3">
+      <img src="https://via.placeholder.com/600x300?text=Image+4" alt="Image 4">
+    </div>
+    <div class="slider-indicators" id="slider-indicators"></div>
+  </div>
+
+  <script>
+    const sliderImages = document.getElementById('slider-images');
+    const sliderIndicators = document.getElementById('slider-indicators');
+    const images = sliderImages.querySelectorAll('img');
+    const totalImages = images.length;
+    let currentIndex = 0;
+
+    // Create indicators
+    for (let i = 0; i < totalImages; i++) {
+      const indicator = document.createElement('span');
+      indicator.dataset.index = i;
+      if (i === 0) indicator.classList.add('active');
+      sliderIndicators.appendChild(indicator);
+
+      indicator.addEventListener('click', () => {
+        currentIndex = i;
+        updateSlider();
+      });
+    }
+
+    const updateSlider = () => {
+      sliderImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+      document.querySelector('.slider-indicators .active').classList.remove('active');
+      sliderIndicators.children[currentIndex].classList.add('active');
+    };
+
+    const autoSlide = () => {
+      currentIndex = (currentIndex + 1) % totalImages;
+      updateSlider();
+    };
+
+    // Auto-slide every 3 seconds
+    setInterval(autoSlide, 3000);
+  </script>
+</body>
+</html>
