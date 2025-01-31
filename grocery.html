@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .vegetables_container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            width: 250px;
+            border: 2px dotted green;
+            background-color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .card img {
+            width: 200px;
+        }
+
+        .veg_name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .price {
+            color: orange;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .space-top{
+            margin-top: 20px;
+        }
+        .buy_now_btn{
+            background-color: #4169E1;
+            border: none;
+            padding: 10px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vegetables_container">
+        <div class="card">
+            <img src="./tomato_image.jpg" alt="">
+            <div class="price space-top">$10</div>
+            <div class="veg_name space-top">Tomato</div>
+            <div class="space-top">1kg</div>
+            <div class="description space-top"> The tomato (US: /təmeɪtoʊ/, UK: /təmɑːtoʊ/), Solanum lycopersicum, is a plant
+                whose fruit is an edible berry that is eaten as a vegetable. The tomato is a member of the nightshade
+                family that includes tobacco, potato, and chili peppers. It originated from and was domesticated in
+                western South America. It was introduced to the Old World by the Spanish in the Columbian exchange in
+                the 16th century.</div>
+            <div class="space-top"><button class="buy_now_btn">Buy now</button></div>
+        </div>
+        <div class="card">
+            <img src="./bringal_image.jpg" alt="">
+            <div class="price space-top">$13</div>
+            <div class="veg_name space-top">Brinjal</div>
+            <div class="space-top">1kg</div>
+            <div class="description space-top">Eggplant, aubergine, brinjal, or baigan is a plant species in the nightshade family
+                Solanaceae. Solanum melongena is grown worldwide for its edible fruit. Most commonly purple, the spongy,
+                absorbent fruit is used in several cuisines. Typically used as a vegetable in cooking, it is a berry by
+                botanical definition</div>
+            <div class="space-top"><button class="buy_now_btn">Buy now</button></div>
+        </div>
+        <div class="card">
+            <img src="./carrot_image.jpg" alt="">
+            <div class="price space-top">$10</div>
+            <div class="veg_name space-top">Carrot</div>
+            <div class="space-top">1kg</div>
+            <div class="description space-top">The carrot (Daucus carota subsp. sativus) is a root vegetable, typically orange in
+                colour, though heirloom variants including purple, black, red, white, and yellow cultivars exist, all of
+                which are domesticated forms of the wild carrot, Daucus carota, native to Europe and Southwestern Asia.
+            </div>
+            <div class="space-top"><button class="buy_now_btn">Buy now</button></div>
+        </div>
+        <div class="card">
+            <img src="./cucumber_image.jpg" alt="">
+            <div class="price">$10</div>
+            <div class="veg_name">Tomato</div>
+            <div>1kg</div>
+            <div class="description">Cucumber is a tool for running automated acceptance tests
+                written in a behavior driven development style.
+                One of its wonderful main features is the ability to execute
+                plain text functional description (written in language named Gherkin)
+                as automated tests.</div>
+            <div class="space-top"><button class="buy_now_btn">Buy now</button></div>
+        </div>
+        <div class="card">
+            <img src="./ladies_finger_image.jpg" alt="">
+            <div class="price">$10</div>
+            <div class="veg_name">Lady Finger</div>
+            <div>1kg</div>
+            <div class="description">Okra, Abelmoschus esculentus, known in some English-speaking countries as lady's
+                fingers, is a flowering plant in the mallow family native to East Africa. Cultivated in tropical,
+                subtropical, and warm temperate regions around the world for its edible green seed pods, okra is
+                featured in the cuisines of many countries</div>
+            <div class="space-top"><button class="buy_now_btn">Buy now</button></div>
+        </div>
+    </div>
+</body>
+
+</html>
